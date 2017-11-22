@@ -1,6 +1,7 @@
 package com.example.natan.movietralierapp1;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -98,10 +99,13 @@ public class MainActivity extends Activity {
             mProgressBar.setVisibility(View.INVISIBLE);
             mRecyclerMovie = new RecyclerMovie(MainActivity.this, movies, new RecyclerMovie.ListItemClickListener() {
                 @Override
-                public void onListItemClick(int clickedItemIndex) {
-                    Toast.makeText(MainActivity.this, String.valueOf(clickedItemIndex), Toast.LENGTH_SHORT).show();
+                public void onListItemClick(Movie movie) {
+                   /* Intent intent=new Intent(MainActivity.this,DetailActivity.class);
+                    intent.putExtra("data",movie);
+                    startActivity(intent); */
+                    Toast.makeText(MainActivity.this, String.valueOf(movie.getTitle()), Toast.LENGTH_SHORT).show();
                 }
-            });
+            } );
 
             mrecyclerView.setAdapter(mRecyclerMovie);
             mRecyclerMovie.notifyDataSetChanged();

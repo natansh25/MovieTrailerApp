@@ -31,7 +31,7 @@ public class RecyclerMovie extends RecyclerView.Adapter<RecyclerMovie.MyViewHold
 
     public interface ListItemClickListener {
 
-        void onListItemClick(int clickedItemIndex);
+        void onListItemClick(Movie movie);
     }
 
 
@@ -55,6 +55,7 @@ public class RecyclerMovie extends RecyclerView.Adapter<RecyclerMovie.MyViewHold
         Movie movie = mMovieList.get(position);
         Context context = holder.img_movie.getContext();
         Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + movie.getImage()).into(holder.img_movie);
+        holder.bind(mMovieList.get(position),mOnClickListener);
 
 
     }
@@ -64,7 +65,7 @@ public class RecyclerMovie extends RecyclerView.Adapter<RecyclerMovie.MyViewHold
         return mMovieList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder{
         public ImageView img_movie;
 
 
@@ -73,15 +74,21 @@ public class RecyclerMovie extends RecyclerView.Adapter<RecyclerMovie.MyViewHold
             img_movie = itemView.findViewById(R.id.imageView);
 
 
-            itemView.setOnClickListener(this);
+            //itemView.setOnClickListener(this);
 
         }
 
-        @Override
-        public void onClick(View v) {
-            int clickedPosition = getAdapterPosition();
-            mOnClickListener.onListItemClick(clickedPosition);
+        public void bind (final Movie movie, final ListItemClickListener listener)
+        {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onListItemClick(movie);
+                }
+            });
+        }
+
+
 
         }
     }
-}
