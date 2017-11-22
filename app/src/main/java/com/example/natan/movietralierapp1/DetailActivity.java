@@ -3,6 +3,7 @@ package com.example.natan.movietralierapp1;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,7 +23,7 @@ public class DetailActivity extends Activity {
         t=findViewById(R.id.release);
         v=findViewById(R.id.vote);
         r=findViewById(R.id.title);
-        img=findViewById(R.id.imageView);
+        img=findViewById(R.id.imageView2);
         f=findViewById(R.id.date);
 
 
@@ -30,7 +31,8 @@ public class DetailActivity extends Activity {
         t.setText(movie.getTitle());
         v.setText(movie.getVoteAverage());
         r.setText(movie.getReleaseDate());
-        Picasso.with(img.getContext()).load(movie.getImage()).into(img);
+        Log.i("img",movie.getImage());
+        Picasso.with(img.getContext()).load("https://image.tmdb.org/t/p/w500" + movie.getImage()).into(img);
 
     }
 }
