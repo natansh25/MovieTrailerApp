@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import com.example.natan.movietralierapp1.MainActivity;
@@ -23,10 +24,20 @@ public class RecyclerMovie extends RecyclerView.Adapter<RecyclerMovie.MyViewHold
 
 
     private List<Movie> mMovieList;
+    //Implementing on click listner
+    final private ListItemClickListener mOnClickListener;
+
+    //Interface
+
+    public interface ListItemClickListener {
+
+        void onListItemClick(int clickedItemIndex);
+    }
 
 
-    public RecyclerMovie(MainActivity mainActivity, List<Movie> movieList) {
+    public RecyclerMovie(MainActivity mainActivity, List<Movie> movieList,ListItemClickListener listener) {
         mMovieList = movieList;
+        mOnClickListener = listener;
     }
 
 
@@ -53,13 +64,23 @@ public class RecyclerMovie extends RecyclerView.Adapter<RecyclerMovie.MyViewHold
         return mMovieList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView img_movie;
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
             img_movie = itemView.findViewById(R.id.imageView);
+
+
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            mOnClickListener.onListItemClick(clickedPosition);
 
         }
     }

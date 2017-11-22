@@ -144,8 +144,17 @@ public class NetworkUtils {
 
                 String img_path=currentMovie.getString("poster_path");
 
+                int vote_average=currentMovie.getInt("vote_average");
 
-                Movie movie1= new Movie(img_path);
+                String release_date=currentMovie.getString("release_date");
+
+                String plot=currentMovie.getString("overview");
+
+                String title=currentMovie.getString("title");
+
+
+                Movie movie1= new Movie(img_path,title,release_date,vote_average,plot);
+                Log.i("tagu", String.valueOf(movie1));
                 movie.add(movie1);
 
             }

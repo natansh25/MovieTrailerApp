@@ -1,5 +1,6 @@
 package com.example.natan.movietralierapp1;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,29 +26,34 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     TextView txt1, txtjson;
     private RecyclerMovie mRecyclerMovie;
     private RecyclerView mrecyclerView;
+    private ProgressBar mProgressBar;
+    private Toast mToast;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        //txt1=findViewById(R.id.txt);
-        //txtjson=findViewById(R.id.json);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            //txt1=findViewById(R.id.txt);
+            //txtjson=findViewById(R.id.json);
 
-        mrecyclerView = findViewById(R.id.recyclerView);
+            mrecyclerView = findViewById(R.id.recyclerView);
+            mProgressBar=findViewById(R.id.progress_bar);
 
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(MainActivity.this, 2);
+            RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(MainActivity.this, 2);
 
 
-        mrecyclerView.setLayoutManager(mLayoutManager);
-        mrecyclerView.setItemAnimator(new DefaultItemAnimator());
+            mrecyclerView.setLayoutManager(mLayoutManager);
+            mrecyclerView.setItemAnimator(new DefaultItemAnimator());
 
 
     }
+
+
 
 
     //Creating inner class for Async Task
@@ -54,12 +62,19 @@ public class MainActivity extends AppCompatActivity {
 
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+
+
+        @Override
         protected List<Movie> doInBackground(URL... urls) {
             /*
             URL searchUrl=urls[0];
             String MovieDbResults=null;
             try{
-                MovieDbResults=NetworkUtils.getResponseFromHttpUrl(searchUrl);
+                MovieDbResults=NetworkUtils.getReponseFromHttpUrl(searchUrl);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -79,7 +94,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<Movie> movies) {
 
-            mRecyclerMovie = new RecyclerMovie(MainActivity.this, movies);
+
+            mProgressBar.setVisibility(View.INVISIBLE);
+            mRecyclerMovie = new RecyclerMovie(MainActivity.this, movies, new RecyclerMovie.ListItemClickListener() {
+                @Override
+                public void onListItemClick(int clickedItemIndex) {
+                    Toast.makeText(MainActivity.this, String.valueOf(clickedItemIndex), Toast.LENGTH_SHORT).show();
+                }
+            });
+
             mrecyclerView.setAdapter(mRecyclerMovie);
             mRecyclerMovie.notifyDataSetChanged();
 
