@@ -2,10 +2,8 @@ package com.example.natan.movietralierapp1.Network;
 
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.example.natan.movietralierapp1.Adapter.Movie;
-import com.example.natan.movietralierapp1.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +31,7 @@ public class NetworkUtils {
 
     // Paste your Api key below......
     //Example final static String api_key="123456b8ghg68ca54g58155b4bd37dff";
-    final static String api_key = "Paste your API_KEY here";
+    final static String api_key = "paste your api_key here";
 
 
     final static String LANGUAGE = "language";

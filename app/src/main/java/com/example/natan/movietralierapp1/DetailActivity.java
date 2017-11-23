@@ -1,9 +1,7 @@
 package com.example.natan.movietralierapp1;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,8 +10,11 @@ import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends Activity {
 
-    TextView txt_Title, txt_Plot, txt_Rating, txt_Release;
-    ImageView img_Poster;
+    private TextView txt_Title;
+    private TextView txt_Plot;
+    private TextView txt_Rating;
+    private TextView txt_Release;
+    private ImageView img_Poster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class DetailActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        Movie movie = (Movie) getIntent().getParcelableExtra("data");
+        Movie movie = getIntent().getParcelableExtra("data");
         txt_Title.setText(movie.getTitle());
         txt_Plot.setText(movie.getOverview());
         txt_Rating.setText(movie.getVoteAverage() + "/10");
