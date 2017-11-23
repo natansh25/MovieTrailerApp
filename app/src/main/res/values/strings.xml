@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Movies</string>
+    <string name="app_name">BLOCKBUSTER MOVIES</string>
     //String resources for menu items
-    <string name="mostPopular">Most_Popular</string>
-    <string name="higestRated">Higest_rated</string>
+    <string name="setting_Popular">Most_Popular</string>
+    <string name="setting_higestRated">Higest_rated</string>
+
 </resources>

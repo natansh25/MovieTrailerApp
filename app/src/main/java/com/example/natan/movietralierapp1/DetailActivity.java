@@ -12,32 +12,29 @@ import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends Activity {
 
-    TextView t, v, r, f;
-    ImageView img;
+    TextView txt_Title, txt_Plot, txt_Rating, txt_Release;
+    ImageView img_Poster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-        t = findViewById(R.id.release);
-        v = findViewById(R.id.vote);
-        r = findViewById(R.id.title);
-        img = findViewById(R.id.imageView2);
-        f = findViewById(R.id.date);
+        txt_Title = findViewById(R.id.title);
+        img_Poster = findViewById(R.id.image_poster);
+        txt_Plot = findViewById(R.id.plot);
+        txt_Rating = findViewById(R.id.rating);
+        txt_Release = findViewById(R.id.release);
 
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //setting back button
-
 
         Movie movie = (Movie) getIntent().getParcelableExtra("data");
-        t.setText(movie.getTitle());
-        v.setText(movie.getVoteAverage());
-        r.setText(movie.getReleaseDate());
-        Log.i("img", movie.getImage());
-        Picasso.with(img.getContext()).load("https://image.tmdb.org/t/p/w500" + movie.getImage()).into(img);
+        txt_Title.setText(movie.getTitle());
+        txt_Plot.setText(movie.getOverview());
+        txt_Rating.setText(movie.getVoteAverage() + "/10");
+        txt_Release.setText(movie.getReleaseDate());
+        Picasso.with(img_Poster.getContext()).load("https://image.tmdb.org/t/p/w500" + movie.getImage()).into(img_Poster);
 
     }
 }

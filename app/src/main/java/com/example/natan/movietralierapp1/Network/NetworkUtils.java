@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.natan.movietralierapp1.Adapter.Movie;
+import com.example.natan.movietralierapp1.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,12 +26,16 @@ import java.util.Scanner;
 
 public class NetworkUtils {
 
-    final static String MOVIE_DB_URL =
-            "https://api.themoviedb.org/3/discover/movie";
-//"https://api.themoviedb.org/3/discover/movie?api_key=053130b8fdf68ca19c58155b4bd37bdd&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1"
+    final static String MOVIE_DB_URL = "https://api.themoviedb.org/3/discover/movie";
+
 
     final static String API_KEY = "api_key";
-    final static String api_key = "053130b8fdf68ca19c58155b4bd37bdd";
+
+    // Paste your Api key below......
+    //Example final static String api_key="123456b8ghg68ca54g58155b4bd37dff";
+    final static String api_key = "Paste your API_KEY here";
+
+
     final static String LANGUAGE = "language";
     final static String language = "en-US";
     final static String SORT_BY = "sort_by";
@@ -44,33 +49,19 @@ public class NetworkUtils {
 
     //Fetching the json response
 
-    public static List<Movie> fetchMovieData (URL url)
-    {
-        //URL url=buildURl(sort);
-        //problem url
-        Log.i("fetch", String.valueOf(url));
-        String jsonResponse=null;
-        try{
-            jsonResponse=getResponseFromHttpUrl(url);
+    public static List<Movie> fetchMovieData(URL url) {
+
+        String jsonResponse = null;
+        try {
+            jsonResponse = getResponseFromHttpUrl(url);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        List<Movie> movies=extractFeaturesFromJson(jsonResponse);
+        List<Movie> movies = extractFeaturesFromJson(jsonResponse);
         return movies;
 
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     //Building URL used to query MOVIEDB
@@ -91,8 +82,8 @@ public class NetworkUtils {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        //perfect
-        Log.i("buildurl", String.valueOf(url));
+
+
         return url;
     }
 
@@ -133,28 +124,25 @@ public class NetworkUtils {
             JSONObject baseJsonResponse = new JSONObject(movieJson);
 
 
-
-            JSONArray movieArray=baseJsonResponse.getJSONArray("results");
-
+            JSONArray movieArray = baseJsonResponse.getJSONArray("results");
 
 
-            for(int i=0;i<movieArray.length();i++)
-            {
-                JSONObject currentMovie=movieArray.getJSONObject(i);
+            for (int i = 0; i < movieArray.length(); i++) {
+                JSONObject currentMovie = movieArray.getJSONObject(i);
 
-                String img_path=currentMovie.getString("poster_path");
+                String img_path = currentMovie.getString("poster_path");
 
-                int vote_average=currentMovie.getInt("vote_average");
+                String vote_average = currentMovie.getString("vote_average");
 
-                String release_date=currentMovie.getString("release_date");
+                String release_date = currentMovie.getString("release_date");
 
-                String plot=currentMovie.getString("overview");
+                String plot = currentMovie.getString("overview");
 
-                String title=currentMovie.getString("title");
+                String title = currentMovie.getString("title");
 
 
-                Movie movie1= new Movie(img_path,title,release_date,vote_average,plot);
-                Log.i("tagu", String.valueOf(movie1));
+                Movie movie1 = new Movie(img_path, title, release_date, vote_average, plot);
+
                 movie.add(movie1);
 
             }
@@ -166,9 +154,6 @@ public class NetworkUtils {
 
         return movie;
     }
-
-
-
 
 
 }

@@ -28,33 +28,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Activity {
-    TextView txt1, txtjson;
+
     private RecyclerMovie mRecyclerMovie;
     private RecyclerView mrecyclerView;
     private ProgressBar mProgressBar;
-    private Toast mToast;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
-            //txt1=findViewById(R.id.txt);
-            //txtjson=findViewById(R.id.json);
+        mrecyclerView = findViewById(R.id.recyclerView);
+        mProgressBar = findViewById(R.id.progress_bar);
 
-            mrecyclerView = findViewById(R.id.recyclerView);
-            mProgressBar=findViewById(R.id.progress_bar);
-
-            RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(MainActivity.this, 2);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(MainActivity.this, 2);
 
 
-            mrecyclerView.setLayoutManager(mLayoutManager);
-            mrecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mrecyclerView.setLayoutManager(mLayoutManager);
+        mrecyclerView.setItemAnimator(new DefaultItemAnimator());
+        build("popularity.desc");
 
 
     }
-
-
 
 
     //Creating inner class for Async Task
@@ -71,23 +67,8 @@ public class MainActivity extends Activity {
 
         @Override
         protected List<Movie> doInBackground(URL... urls) {
-            /*
-            URL searchUrl=urls[0];
-            String MovieDbResults=null;
-            try{
-                MovieDbResults=NetworkUtils.getReponseFromHttpUrl(searchUrl);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-            return MovieDbResults;
-            */
 
             List<Movie> result = NetworkUtils.fetchMovieData(urls[0]);
-            //perfect
-            Log.i("tag12", String.valueOf(urls[0]));
-
             return result;
         }
 
@@ -100,12 +81,12 @@ public class MainActivity extends Activity {
             mRecyclerMovie = new RecyclerMovie(MainActivity.this, movies, new RecyclerMovie.ListItemClickListener() {
                 @Override
                 public void onListItemClick(Movie movie) {
-                   /* Intent intent=new Intent(MainActivity.this,DetailActivity.class);
-                    intent.putExtra("data",movie);
-                    startActivity(intent); */
-                    Toast.makeText(MainActivity.this, String.valueOf(movie.getTitle()), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                    intent.putExtra("data", movie);
+                    startActivity(intent);
+
                 }
-            } );
+            });
 
             mrecyclerView.setAdapter(mRecyclerMovie);
             mRecyclerMovie.notifyDataSetChanged();
@@ -127,25 +108,22 @@ public class MainActivity extends Activity {
 
         switch (item.getItemId()) {
             case R.id.higest_rated:
-                Toast.makeText(this, "Highest Rated", Toast.LENGTH_SHORT).show();
-                URL sortUrl = NetworkUtils.buildURl("vote_count.desc");
-                Log.i("sort", String.valueOf(sortUrl));
-                //Log.i("url", sortUrl.toString());
-                // txt1.setText(sortUrl.toString());
-
-                new MovieDbQUeryTask().execute(sortUrl);
+                build("vote_count.desc");
 
 
                 break;
 
             case R.id.most_popular:
-                //Toast.makeText(this, "most popular", Toast.LENGTH_SHORT).show();
-                URL sortUrl2 = NetworkUtils.buildURl("popularity.desc");
-                //txt1.setText(sortUrl2.toString());
-                new MovieDbQUeryTask().execute(sortUrl2);
+                build("popularity.desc");
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private URL build(String sort) {
+        URL final_Url = NetworkUtils.buildURl(sort);
+        new MovieDbQUeryTask().execute(final_Url);
+        return final_Url;
     }
 }

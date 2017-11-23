@@ -4,20 +4,19 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
-        * Created by natan on 11/19/2017.
-        */
+ * Created by natan on 11/19/2017.
+ */
 
 public class Movie implements Parcelable {
 
-    private String mTitle,mReleaseDate,mOverview,mImage;
-    private int mVoteAverage;
+    private String mTitle, mReleaseDate, mOverview, mImage, mVoteAverage;
 
 
     public Movie(String image) {
         mImage = image;
     }
 
-    public Movie(String image, String title, String releaseDate, int voteAverage, String overview) {
+    public Movie(String image, String title, String releaseDate, String voteAverage, String overview) {
         mImage = image;
         mTitle = title;
         mReleaseDate = releaseDate;
@@ -49,11 +48,11 @@ public class Movie implements Parcelable {
         mReleaseDate = releaseDate;
     }
 
-    public int getVoteAverage() {
+    public String getVoteAverage() {
         return mVoteAverage;
     }
 
-    public void setVoteAverage(int voteAverage) {
+    public void setVoteAverage(String voteAverage) {
         mVoteAverage = voteAverage;
     }
 
@@ -76,7 +75,7 @@ public class Movie implements Parcelable {
         dest.writeString(this.mReleaseDate);
         dest.writeString(this.mOverview);
         dest.writeString(this.mImage);
-        dest.writeInt(this.mVoteAverage);
+        dest.writeString(this.mVoteAverage);
     }
 
     protected Movie(Parcel in) {
@@ -84,7 +83,7 @@ public class Movie implements Parcelable {
         this.mReleaseDate = in.readString();
         this.mOverview = in.readString();
         this.mImage = in.readString();
-        this.mVoteAverage = in.readInt();
+        this.mVoteAverage = in.readString();
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
