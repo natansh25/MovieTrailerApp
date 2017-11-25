@@ -26,6 +26,13 @@ public class MainActivity extends Activity {
     private RecyclerView mrecyclerView;
     private ProgressBar mProgressBar;
 
+    // onSaveinstance varibale
+
+    private final static String MENU_SELECTED = "selected";
+    private int selected = -1;
+    MenuItem menuItem;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +49,26 @@ public class MainActivity extends Activity {
         mrecyclerView.setItemAnimator(new DefaultItemAnimator());
         build("popularity.desc");
 
+        //onSavedInstance loading if exist
 
+        if(savedInstanceState !=null)
+        {
+            selected=savedInstanceState.getInt(MENU_SELECTED);
 
+           if(selected==-1)
+           {
+               build("popularity.desc");
+           }
+           else if (selected==R.id.highest_Rated)
+           {
+               build("vote_count.desc");
+           }
+           else
+           {
+               build("popularity.desc");
+           }
+
+        }
     }
 
 
@@ -88,11 +113,20 @@ public class MainActivity extends Activity {
         }
     }
 
+    //onsaveInstanceState
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(MENU_SELECTED, selected);
+        super.onSaveInstanceState(outState);
+    }
+
 
     // For menu settings
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -100,15 +134,17 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
+        int id=item.getItemId();
+        switch (id) {
             case R.id.highest_Rated:
                 build("vote_count.desc");
-
+                selected=id;
 
                 break;
 
             case R.id.most_popular:
                 build("popularity.desc");
+                selected=id;
                 break;
         }
 
