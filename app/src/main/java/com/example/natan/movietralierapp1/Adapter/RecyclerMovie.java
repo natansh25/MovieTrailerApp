@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.natan.movietralierapp1.MainActivity;
+import com.example.natan.movietralierapp1.picasso.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 
 import com.example.natan.movietralierapp1.R;
@@ -56,7 +57,7 @@ public class RecyclerMovie extends RecyclerView.Adapter<RecyclerMovie.MyViewHold
 
         Movie movie = mMovieList.get(position);
 
-        Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getImage()).into(holder.img_movie);
+        Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getImage()).transform(new RoundedTransformation(14, 0)).into(holder.img_movie);
         holder.bind(mMovieList.get(position), mOnClickListener);
 
 
