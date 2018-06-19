@@ -2,6 +2,7 @@ package com.example.natan.movietralierapp1.Network;
 
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.natan.movietralierapp1.Adapter.Movie;
 
@@ -24,14 +25,14 @@ import java.util.Scanner;
 
 public class NetworkUtils {
 
-    final static String MOVIE_DB_URL = "https://api.themoviedb.org/3/discover/movie";
+    final static String MOVIE_DB_URL = "http://api.themoviedb.org/3/movie/";
 
 
     final static String API_KEY = "api_key";
 
     // Paste your Api key below......
     //Example final static String api_key="123456b8ghg68ca54g58155b4bd37dff";
-    final static String api_key = "paste your api_key here";
+    final static String api_key = "053130b8fdf68ca19c58155b4bd37bdd";
 
 
     final static String LANGUAGE = "language";
@@ -48,6 +49,7 @@ public class NetworkUtils {
     //Fetching the json response
 
     public static List<Movie> fetchMovieData(URL url) {
+        Log.i("xyz", String.valueOf(url));
 
         String jsonResponse = null;
         try {
@@ -66,14 +68,10 @@ public class NetworkUtils {
 
     public static URL buildURl(String sort) {
         Uri builtUri = Uri.parse(MOVIE_DB_URL).buildUpon()
-                .appendQueryParameter(API_KEY, api_key)
-                .appendQueryParameter(LANGUAGE, language)
-                .appendQueryParameter(SORT_BY, sort)
-                .appendQueryParameter(INCLUDE_ADULT, include_adult)
-                .appendQueryParameter(INCLUDE_VIDEO, include_video)
-                .appendQueryParameter(PAGE, page)
+                .appendPath(sort)
+                .appendQueryParameter(API_KEY,api_key)
                 .build();
-
+        Log.i("NewUrl", String.valueOf(builtUri));
         URL url = null;
         try {
             url = new URL(builtUri.toString());
@@ -119,6 +117,7 @@ public class NetworkUtils {
 
         try {
 
+
             JSONObject baseJsonResponse = new JSONObject(movieJson);
 
 
@@ -138,8 +137,10 @@ public class NetworkUtils {
 
                 String title = currentMovie.getString("title");
 
+                String backImage=currentMovie.getString("backdrop_path");
 
-                Movie movie1 = new Movie(img_path, title, release_date, vote_average, plot);
+
+                Movie movie1 = new Movie(img_path, title, release_date, vote_average, plot,backImage);
 
                 movie.add(movie1);
 

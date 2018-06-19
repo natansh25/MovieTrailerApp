@@ -20,53 +20,51 @@ import com.example.natan.movietralierapp1.Network.NetworkUtils;
 import java.net.URL;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends Activity {
 
+
+    @BindView(R.id.recyclerView)
+    RecyclerView mrecyclerView;
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressBar;
+
     private RecyclerMovie mRecyclerMovie;
-    private RecyclerView mrecyclerView;
-    private ProgressBar mProgressBar;
 
     // onSaveinstance varibale
 
     private final static String MENU_SELECTED = "selected";
     private int selected = -1;
-    MenuItem menuItem;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-
-        mrecyclerView = findViewById(R.id.recyclerView);
-        mProgressBar = findViewById(R.id.progress_bar);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(MainActivity.this, 2);
 
 
         mrecyclerView.setLayoutManager(mLayoutManager);
         mrecyclerView.setItemAnimator(new DefaultItemAnimator());
-        build("popularity.desc");
+        build("popular");
 
         //onSavedInstance loading if exist
 
-        if(savedInstanceState !=null)
-        {
-            selected=savedInstanceState.getInt(MENU_SELECTED);
+        if (savedInstanceState != null) {
+            selected = savedInstanceState.getInt(MENU_SELECTED);
 
-           if(selected==-1)
-           {
-               build("popularity.desc");
-           }
-           else if (selected==R.id.highest_Rated)
-           {
-               build("vote_count.desc");
-           }
-           else
-           {
-               build("popularity.desc");
-           }
+            if (selected == -1) {
+                build("popular");
+            } else if (selected == R.id.highest_Rated) {
+                build("top_rated");
+            } else {
+                build("popular");
+            }
 
         }
     }
@@ -126,7 +124,7 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -134,17 +132,17 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        int id=item.getItemId();
+        int id = item.getItemId();
         switch (id) {
             case R.id.highest_Rated:
-                build("vote_count.desc");
-                selected=id;
+                build("top_rated");
+                selected = id;
 
                 break;
 
             case R.id.most_popular:
-                build("popularity.desc");
-                selected=id;
+                build("popular");
+                selected = id;
                 break;
         }
 

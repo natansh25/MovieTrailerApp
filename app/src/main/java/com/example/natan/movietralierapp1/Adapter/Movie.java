@@ -9,7 +9,7 @@ import android.os.Parcelable;
 
 public class Movie implements Parcelable {
 
-    private String mTitle, mReleaseDate, mOverview, mImage, mVoteAverage;
+    private String mTitle, mReleaseDate, mOverview, mImage, mVoteAverage,mBackImage;
 
 
     public Movie(String image) {
@@ -22,6 +22,24 @@ public class Movie implements Parcelable {
         mReleaseDate = releaseDate;
         mVoteAverage = voteAverage;
         mOverview = overview;
+    }
+
+    public String getBackImage() {
+        return mBackImage;
+    }
+
+    public void setBackImage(String backImage) {
+        mBackImage = backImage;
+    }
+
+    public Movie(String image, String title, String releaseDate, String voteAverage, String overview, String backImage) {
+
+        mTitle = title;
+        mReleaseDate = releaseDate;
+        mOverview = overview;
+        mImage = image;
+        mVoteAverage = voteAverage;
+        mBackImage = backImage;
     }
 
     public String getImage() {
@@ -76,6 +94,7 @@ public class Movie implements Parcelable {
         dest.writeString(this.mOverview);
         dest.writeString(this.mImage);
         dest.writeString(this.mVoteAverage);
+        dest.writeString(this.mBackImage);
     }
 
     protected Movie(Parcel in) {
@@ -84,9 +103,10 @@ public class Movie implements Parcelable {
         this.mOverview = in.readString();
         this.mImage = in.readString();
         this.mVoteAverage = in.readString();
+        this.mBackImage = in.readString();
     }
 
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
         @Override
         public Movie createFromParcel(Parcel source) {
             return new Movie(source);

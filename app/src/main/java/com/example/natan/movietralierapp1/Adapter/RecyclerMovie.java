@@ -15,6 +15,9 @@ import com.example.natan.movietralierapp1.R;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by natan on 11/20/2017.
  */
@@ -52,8 +55,8 @@ public class RecyclerMovie extends RecyclerView.Adapter<RecyclerMovie.MyViewHold
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         Movie movie = mMovieList.get(position);
-        Context context = holder.img_movie.getContext();
-        Picasso.with(context).load("https://image.tmdb.org/t/p/w500" + movie.getImage()).into(holder.img_movie);
+
+        Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getImage()).into(holder.img_movie);
         holder.bind(mMovieList.get(position), mOnClickListener);
 
 
@@ -65,15 +68,14 @@ public class RecyclerMovie extends RecyclerView.Adapter<RecyclerMovie.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public ImageView img_movie;
+
+        @BindView(R.id.imageView)
+        ImageView img_movie;
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            img_movie = itemView.findViewById(R.id.imageView);
-
-
-            //itemView.setOnClickListener(this);
+            ButterKnife.bind(this, itemView);
 
         }
 
