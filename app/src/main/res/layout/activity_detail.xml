@@ -5,10 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.natan.movietralierapp1.DetailActivity"
-    tools:layout_editor_absoluteY="81dp">
+    >
 
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/app_bar_image"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        android:src="@android:drawable/sym_def_app_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/image_poster"
+        android:layout_width="140dp"
+        android:layout_height="190dp"
+
+
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="180dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!--<RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="85dp"
@@ -78,19 +102,6 @@
 
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/image_poster"
-        android:layout_width="198dp"
-        android:layout_height="274dp"
-        android:layout_marginBottom="164dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="TODO"
-        android:src="@mipmap/ic_launcher"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
-        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/rating"
@@ -131,7 +142,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/relativeLayout2"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="25-03-1992" />
+        tools:text="25-03-1992" />-->
+
 
 
 </android.support.constraint.ConstraintLayout>

@@ -9,7 +9,7 @@ import android.os.Parcelable;
 
 public class Movie implements Parcelable {
 
-    private String mTitle, mReleaseDate, mOverview, mImage, mVoteAverage,mBackImage;
+    private String mTitle, mReleaseDate, mOverview, mImage, mVoteAverage, mBackImage;
 
 
     public Movie(String image) {
