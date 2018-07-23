@@ -45,7 +45,7 @@ public class DetailActivity extends AppCompatActivity {
         Movie movie = getIntent().getParcelableExtra("data");
         String name = getIntent().getExtras().getString(MainActivity.EXTRA_ANIMAL_IMAGE_TRANSITION_NAME);
         Float rating= Float.valueOf(movie.getVoteAverage());
-        Float cal=rating/10;
+        Float cal=(5*rating)/10;
 
         mRatingbar.setRating(cal);
 
