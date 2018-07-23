@@ -36,14 +36,20 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        tools:text="Ant-Man "
+        android:layout_marginTop="16dp"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:fontFamily="@font/fjalla"
         android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:freezesText="true"
+        android:singleLine="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_poster"
-        app:layout_constraintTop_toBottomOf="@+id/app_bar_image" />
+        app:layout_constraintTop_toBottomOf="@+id/app_bar_image"
+        tools:text="Ant-Man " />
 
     <TextView
         android:id="@+id/textView4"
