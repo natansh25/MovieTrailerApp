@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView mrecyclerView;
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
+
+    public static final String EXTRA_ANIMAL_IMAGE_TRANSITION_NAME = "animal_image_transition_name";
 
     private RecyclerMovie mRecyclerMovie;
 
@@ -99,9 +103,11 @@ public class MainActivity extends AppCompatActivity {
             mProgressBar.setVisibility(View.INVISIBLE);
             mRecyclerMovie = new RecyclerMovie(MainActivity.this, movies, new RecyclerMovie.ListItemClickListener() {
                 @Override
-                public void onListItemClick(Movie movie) {
+                public void onListItemClick(Movie movie, ImageView imageView) {
                     Intent intent = new Intent(MainActivity.this, DetailActivity.class);
                     intent.putExtra("data", movie);
+                    intent.putExtra(EXTRA_ANIMAL_IMAGE_TRANSITION_NAME, ViewCompat.getTransitionName(imageView));
+
                     startActivity(intent);
 
                 }

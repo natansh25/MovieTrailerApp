@@ -2,6 +2,7 @@
 package com.example.natan.movietralierapp1.Adapter;
 
 import android.content.Context;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,7 @@ public class RecyclerMovie extends RecyclerView.Adapter<RecyclerMovie.MyViewHold
 
     public interface ListItemClickListener {
 
-        void onListItemClick(Movie movie);
+        void onListItemClick(Movie movie,ImageView imageView);
     }
 
 
@@ -59,6 +60,7 @@ public class RecyclerMovie extends RecyclerView.Adapter<RecyclerMovie.MyViewHold
 
         Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getImage()).transform(new RoundedTransformation(14, 0)).into(holder.img_movie);
         holder.bind(mMovieList.get(position), mOnClickListener);
+        ViewCompat.setTransitionName(holder.img_movie, movie.getTitle());
 
 
     }
@@ -84,7 +86,7 @@ public class RecyclerMovie extends RecyclerView.Adapter<RecyclerMovie.MyViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onListItemClick(movie);
+                    listener.onListItemClick(movie,img_movie);
                 }
             });
         }
